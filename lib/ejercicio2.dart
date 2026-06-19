@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// EJERCICIO 2 - Presión en un líquido
-// Fórmula: P = densidad * gravedad * profundidad
-// Fondo: imagen LOCAL (assets/fondo.jpg)
-
 class Ejercicio2 extends StatefulWidget {
   const Ejercicio2({super.key});
   @override
@@ -19,7 +15,6 @@ class _Ejercicio2State extends State<Ejercicio2> {
   void _calcular() {
     final p = double.tryParse(_profundidad.text) ?? 0;
 
-    // Validación: profundidad negativa no permitida
     if (p < 0) {
       showDialog(
         context: context,
@@ -33,11 +28,9 @@ class _Ejercicio2State extends State<Ejercicio2> {
       return;
     }
 
-    // Si el campo está vacío usa el valor por defecto
-    final d = double.tryParse(_densidad.text) ?? 1000; // agua por defecto
-    final g = double.tryParse(_gravedad.text) ?? 9.8;  // tierra por defecto
+    final d = double.tryParse(_densidad.text) ?? 1000;
+    final g = double.tryParse(_gravedad.text) ?? 9.8;
 
-    // Cálculo
     final presion = d * g * p;
     setState(() => _resultado = 'P = ${presion.toStringAsFixed(2)} Pa');
   }
@@ -46,11 +39,9 @@ class _Ejercicio2State extends State<Ejercicio2> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // IMAGEN LOCAL como fondo
         Positioned.fill(
           child: Image.asset('assets/fondo.jpg', fit: BoxFit.cover),
         ),
-        // Contenido encima del fondo
         Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
