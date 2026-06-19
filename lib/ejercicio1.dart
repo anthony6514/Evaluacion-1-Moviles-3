@@ -10,26 +10,25 @@ class _Ejercicio1State extends State<Ejercicio1> {
   final _sistolica = TextEditingController();
   final _diastolica = TextEditingController();
   String _resultado = '';
+  String _error = '';
 
   void _calcular() {
     final s = double.tryParse(_sistolica.text) ?? 0;
     final d = double.tryParse(_diastolica.text) ?? 0;
 
     if (s < d) {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          content: const Text('Error: valores inválidos.'),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))
-          ],
-        ),
-      );
+      setState(() {
+        _error = 'Error: valores inválidos.';
+        _resultado = '';
+      });
       return;
     }
 
     final pam = d + (s - d) / 3;
-    setState(() => _resultado = 'PAM = ${pam.toStringAsFixed(2)} mmHg');
+    setState(() {
+      _error = '';
+      _resultado = 'PAM = ${pam.toStringAsFixed(2)} mmHg';
+    });
   }
 
   @override
@@ -51,7 +50,8 @@ class _Ejercicio1State extends State<Ejercicio1> {
           const SizedBox(height: 16),
           ElevatedButton(onPressed: _calcular, child: const Text('Calcular')),
           const SizedBox(height: 16),
-          Text(_resultado),
+          if (_error.isNotEmpty) Text(_error, style: const TextStyle(color: Colors.red)),
+          if (_resultado.isNotEmpty) Text(_resultado),
         ],
       ),
     );

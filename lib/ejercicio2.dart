@@ -11,20 +11,16 @@ class _Ejercicio2State extends State<Ejercicio2> {
   final _densidad = TextEditingController();
   final _gravedad = TextEditingController();
   String _resultado = '';
+  String _error = '';
 
   void _calcular() {
     final p = double.tryParse(_profundidad.text) ?? 0;
 
     if (p < 0) {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          content: const Text('La profundidad no puede ser negativa'),
-          actions: [
-            TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))
-          ],
-        ),
-      );
+      setState(() {
+        _error = 'La profundidad no puede ser negativa';
+        _resultado = '';
+      });
       return;
     }
 
@@ -32,7 +28,10 @@ class _Ejercicio2State extends State<Ejercicio2> {
     final g = double.tryParse(_gravedad.text) ?? 9.8;
 
     final presion = d * g * p;
-    setState(() => _resultado = 'P = ${presion.toStringAsFixed(2)} Pa');
+    setState(() {
+      _error = '';
+      _resultado = 'P = ${presion.toStringAsFixed(2)} Pa';
+    });
   }
 
   @override
@@ -64,7 +63,8 @@ class _Ejercicio2State extends State<Ejercicio2> {
               const SizedBox(height: 16),
               ElevatedButton(onPressed: _calcular, child: const Text('Calcular')),
               const SizedBox(height: 16),
-              Text(_resultado),
+              if (_error.isNotEmpty) Text(_error, style: const TextStyle(color: Colors.red)),
+              if (_resultado.isNotEmpty) Text(_resultado),
             ],
           ),
         ),

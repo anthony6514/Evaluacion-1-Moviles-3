@@ -17,25 +17,9 @@ class _HomeState extends State<Home> {
   final _pantallas = const [Ejercicio1(), Ejercicio2(), Ejercicio3()];
 
   void _mostrarInfo() {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Ejercicios de Programación'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Programador: Anthony Ruiz'),
-            Text('Carrera: Desarrollo de Software'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          )
-        ],
-      ),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const InfoPage()),
     );
   }
 
@@ -60,6 +44,30 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(icon: SizedBox.shrink(), label: 'Líquidos'),
           BottomNavigationBarItem(icon: SizedBox.shrink(), label: 'Videojuegos'),
         ],
+      ),
+    );
+  }
+}
+
+class InfoPage extends StatelessWidget {
+  const InfoPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Ejercicios de Programación')),
+      body: const Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Título: Ejercicios de Programación'),
+            SizedBox(height: 8),
+            Text('Programador: Anthony Ruiz'),
+            SizedBox(height: 8),
+            Text('Carrera: Desarrollo de Software'),
+          ],
+        ),
       ),
     );
   }
