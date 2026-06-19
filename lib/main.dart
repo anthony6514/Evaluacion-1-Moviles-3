@@ -16,6 +16,13 @@ class _HomeState extends State<Home> {
 
   final _pantallas = const [Ejercicio1(), Ejercicio2(), Ejercicio3()];
 
+  @override
+  void initState() {
+    super.initState();
+    // Muestra el diálogo automáticamente al abrir la app
+    WidgetsBinding.instance.addPostFrameCallback((_) => _mostrarInfo());
+  }
+
   void _mostrarInfo() {
     showDialog(
       context: context,
