@@ -21,7 +21,14 @@ class _HomeState extends State<Home> {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Ejercicios de Programación'),
-        content: const Text('Programador: Juan Paz\nCarrera: Desarrollo de Software'),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Programador: Anthony Ruiz'),
+            Text('Carrera: Desarrollo de Software'),
+          ],
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
